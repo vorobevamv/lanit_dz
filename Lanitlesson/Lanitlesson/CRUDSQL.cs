@@ -5,9 +5,14 @@ using System.Data.Sql;
 
 namespace Lanitlesson
 {
-    class CRUDSQL
+    class CRUDSQL:Homework
+
     {
-        public static void Menu()
+        public CRUDSQL(Mediator mediator) : base(mediator)
+        {
+        }
+
+        public static void Start() //Menu
         {
             string otvetSQL;
 
@@ -15,8 +20,8 @@ namespace Lanitlesson
                 "добавить данные о книге или читателе - введите 1\n " +
                 "посмотреть данные о читателях или книгах  - введите 2\n " +
                 "уточнить возраст читателя - введите 3\n " +
-                "удалить книгу из базы - введите 4\n " +
-                "ВЫХОД - введите 0");
+                "удалить книгу из базы - введите 4\n ");
+                //+"ВЫХОД - введите 0");
 
             otvetSQL = Console.ReadLine();
 
@@ -34,12 +39,12 @@ namespace Lanitlesson
                 case "4":
                     CRUDSQL.DeleteSQL(); ;
                     break;
-                case "0":
+                /*case "0":
                     MenuDZ.Call();
-                    break;
+                    break;*/
                 default:
                     TextColor.Red("в меню нет такого пункта");
-                    CRUDSQL.Menu();
+                    //CRUDSQL.Start();
                     break;
             }
         }
@@ -82,7 +87,7 @@ namespace Lanitlesson
                 else
                 {
                     TextColor.Red("Такого автора нет!");
-                    CRUDSQL.Menu();
+                    CRUDSQL.Start();
                 }
             }
             else if (otvet == "2")
@@ -117,15 +122,15 @@ namespace Lanitlesson
                 else
                 {
                     TextColor.Red("Такого читателя нет!");
-                    CRUDSQL.Menu();
+                    CRUDSQL.Start();
                 }
             }
             else
             {
                 TextColor.Red("Такого варианта нет!");
-                CRUDSQL.Menu();
+                CRUDSQL.Start();
             }
-            CRUDSQL.Menu();
+            CRUDSQL.Start();
         }
         public static void CreateSQL()
         {
@@ -329,9 +334,9 @@ namespace Lanitlesson
             else
             {
                 TextColor.Red("Такого варианта нет!");
-                CRUDSQL.Menu();
+                CRUDSQL.Start();
             }
-            CRUDSQL.Menu();
+            CRUDSQL.Start();
         }
 
         public static void UpdateSQL()
@@ -432,7 +437,7 @@ namespace Lanitlesson
                 }
             }
 
-            CRUDSQL.Menu();
+            CRUDSQL.Start();
         }
 
         public static void DeleteSQL()
@@ -497,7 +502,7 @@ namespace Lanitlesson
                     continue;
                 }
             }
-            CRUDSQL.Menu();
+            CRUDSQL.Start();
         }
 
     }

@@ -3,9 +3,14 @@
 
 namespace Lanitlesson
 {
-    class Konek
+    class Konek:Homework
     {
-        public static void ReadKonek()
+        public Konek (Mediator mediator)
+           : base(mediator)
+        {
+        }
+
+        public static void Start() //ReadKonek
         {
             using (StreamReader stream = new StreamReader("konyok-gorbunok.txt"))
             {
@@ -108,7 +113,7 @@ namespace Lanitlesson
                         continue;
                     }
                 }
-                MenuDZ.Call();
+                //MenuDZ.Call();
             }
         }
     }

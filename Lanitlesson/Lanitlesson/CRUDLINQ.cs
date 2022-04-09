@@ -4,9 +4,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lanitlesson
 {
-    internal class CRUDLINQ
+    public class CRUDLINQ:Homework
     {
-        public static void Menu()
+        public CRUDLINQ(Mediator mediator) : base(mediator)
+        {
+        }
+
+        public static void Start() //Menu
         {
             string otvetLINQ;
 
@@ -14,8 +18,8 @@ namespace Lanitlesson
                 "добавить данные о новом клиенте - введите 1\n " +
                 "посмотреть данные об аренде автомобилей или данные о клиенте  - введите 2\n " +
                 "уточнить номер водительского удостоверения клиента - введите 3\n " +
-                "уточнить номер водительского удостоверения клиента - введите 4\n " +
-                "ВЫХОД - введите 0");
+                "удалить данные о клиенте - введите 4\n ");
+                //+"ВЫХОД - введите 0");
 
             otvetLINQ = Console.ReadLine();
 
@@ -33,12 +37,12 @@ namespace Lanitlesson
                 case "4":
                     CRUDLINQ.Delete();
                     break;
-                case "0":
+                /*case "0":
                     MenuDZ.Call();
-                    break;
+                    break;*/
                 default:
                     TextColor.Red("в меню нет такого пункта");
-                    CRUDSQL.Menu();
+                    //CRUDSQL.Start();
                     break;
             }
         }
@@ -135,7 +139,7 @@ namespace Lanitlesson
             {
                 con.Database.Migrate();
             }
-            CRUDLINQ.Menu();
+            CRUDLINQ.Start();
         }
 
         public static void Update()
@@ -186,7 +190,7 @@ namespace Lanitlesson
                     }
                 }
             }
-            CRUDLINQ.Menu();
+            CRUDLINQ.Start();
         }
 
         public static void Read()
@@ -279,7 +283,7 @@ namespace Lanitlesson
             {
                 TextColor.Red("Такого варианта нет!");
             }
-            CRUDLINQ.Menu();
+            CRUDLINQ.Start();
         }
 
         public static void Delete()
@@ -330,7 +334,7 @@ namespace Lanitlesson
                                 }
                                 else
                                 {
-                                    CRUDLINQ.Menu();
+                                    CRUDLINQ.Start();
                                 }
                             }
                             else
@@ -350,7 +354,7 @@ namespace Lanitlesson
                 }
                 con.Database.Migrate();
             }
-            CRUDLINQ.Menu();
+            CRUDLINQ.Start();
         }
     }
 }

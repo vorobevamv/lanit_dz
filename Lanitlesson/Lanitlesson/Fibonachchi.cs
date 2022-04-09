@@ -3,9 +3,14 @@
 
 namespace Lanitlesson
 {
-    class Fibonachchi
+    class Fibonachchi : Homework
     {
-        public static void CountFibo()
+        public Fibonachchi (Mediator mediator)
+           : base(mediator)
+        {
+        }
+
+        public static void Start() //CountFibo
         {
             int countFibo=0;
             string otvet;
@@ -20,7 +25,7 @@ namespace Lanitlesson
             {
                 while (true)
                 {
-                    TextColor.Green("Какой элемент последовательности вычислисть (введите целое число больще нуля)?");
+                    TextColor.Green("Какой элемент последовательности вычислисть (введите целое число больше нуля)?");
                     try
                     {
                         countFibo = Convert.ToInt32(Console.ReadLine());
@@ -103,7 +108,7 @@ namespace Lanitlesson
                     }
                 }
             }
-            MenuDZ.Call();
+            //MenuDZ.Call();
         }
     }
 }

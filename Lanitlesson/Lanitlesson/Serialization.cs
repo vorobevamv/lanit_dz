@@ -3,8 +3,12 @@ using System.Text.Json;
 
 namespace Lanitlesson
 {
-    internal class Serialization
+    internal class Serialization:Homework
     {
+        public Serialization (Mediator mediator)
+           : base(mediator)
+        {
+        }
         public static void Start()
         {
             string otvet;
@@ -133,7 +137,7 @@ namespace Lanitlesson
                     }
                 }
             }
-            MenuDZ.Call();
+            //MenuDZ.Call();
         }
     }
 }
