@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lanitlesson
 {
@@ -6,8 +9,8 @@ namespace Lanitlesson
     {
         static void Main()
         {
-            MenuDZ.Call();
 
+            MenuDZ.Call();
            
         }
     }

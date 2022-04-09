@@ -21,6 +21,7 @@ namespace Lanitlesson
                 TextColor.Green("Введите ссылку");
                 urlurl = Console.ReadLine();
                 Regex pattern = new Regex(@"https?://([a-z1-9]+.)?[a-z1-9\-]+(\.[a-z]+){1,}/?");
+
                 if (pattern.IsMatch(urlurl))
                 {
                     TextColor.Blue("Это ссылка");
@@ -28,11 +29,13 @@ namespace Lanitlesson
                     {
                         UrlCode = web.DownloadString(urlurl);
                         ///File.WriteAllLines("yndex.txt", YaCode);
+                        
                         using (FileStream stream = new FileStream("url_copy.txt", FileMode.OpenOrCreate))
                         {
                             byte[] array = System.Text.Encoding.Default.GetBytes(UrlCode);
                             stream.Write(array, 0, array.Length);
                         }
+
                         TextColor.Blue("Файл создан");
                     }
                     catch (ArgumentNullException e)
@@ -56,8 +59,10 @@ namespace Lanitlesson
                 else
                 {
                     TextColor.Blue("Это  не ссылка");
+
                     TextColor.Green("Если хотите ввести другую ссылку, нажмите 1 \n для выхода в главное меню - нажмите любую другую клавишу");
                     otvet = Console.ReadLine();
+
                     if (otvet == "1")
                     {
                         continue;
