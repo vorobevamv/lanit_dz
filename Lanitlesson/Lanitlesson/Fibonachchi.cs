@@ -9,11 +9,13 @@ namespace Lanitlesson
         {
             int countFibo=0;
             string otvet;
-            long f1 = 0;
-            long f2 = 1;
+            long firstNumber = 0;
+            long lastNumber = 1;
             long Fibo = default;
+
             TextColor.Green("Чтобы посчитать элемент последовательности Фибоначчи, введите 1; \n чтобы выйти в главное меню, нажмите другую клавишу");
             otvet = Console.ReadLine();
+
             if (otvet == "1")
             {
                 while (true)
@@ -48,17 +50,22 @@ namespace Lanitlesson
                         Console.WriteLine("Элемент под номером 1 в последовательности Фибоначчи - это 0");
                         TextColor.Green("Посчитать другой эелемент? - введите 1; \n чтобы выйти, нажмите другую клавишу");
                         otvet = Console.ReadLine();
+
                         if (otvet == "1")
-                         
+                        {
                             continue;
+                        }
                         else
+                        {
                             break;
+                        }
                     }
                     else if (countFibo == 2)
                     {
                         Console.WriteLine("Элемент под номером 2 в последовательности Фибоначи - это 1");
                         TextColor.Green("Посчитать другой эелемент? - введите 1; \n чтобы выйти, нажмите другую клавишу");
                         otvet = Console.ReadLine();
+
                         if (otvet == "1")
                         {
                             continue;
@@ -72,16 +79,19 @@ namespace Lanitlesson
                     {
                         Console.WriteLine(0);
                         Console.WriteLine(1);
+
                         for (int f = 0; f <= countFibo - 3; f++)
                         {
-                            Fibo = f1 + f2;
+                            Fibo = firstNumber + lastNumber;
                             Console.WriteLine(Fibo);
-                            f1 = f2;
-                            f2 = Fibo;
+                            firstNumber = lastNumber;
+                            firstNumber = Fibo;
                         }
+
                         Console.WriteLine($"Элемент под номером {countFibo} в последовательности Фибоначи - это {Fibo}");
                         TextColor.Green("Посчитать другой эелемент? - введите 1; \n чтобы выйти, нажмите другую клавишу");
                         otvet = Console.ReadLine();
+
                         if (otvet == "1")
                         { 
                             continue;

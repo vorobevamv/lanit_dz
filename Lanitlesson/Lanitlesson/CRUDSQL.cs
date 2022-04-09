@@ -10,6 +10,7 @@ namespace Lanitlesson
         public static void Menu()
         {
             string otvetSQL;
+
             TextColor.Green("МЕНЮ SQL\n " +
                 "добавить данные о книге или читателе - введите 1\n " +
                 "посмотреть данные о читателях или книгах  - введите 2\n " +
@@ -81,7 +82,7 @@ namespace Lanitlesson
                 else
                 {
                     TextColor.Red("Такого автора нет!");
-                    //ВЫХОД В МЕНЮ
+                    CRUDSQL.Menu();
                 }
             }
             else if (otvet == "2")
@@ -116,14 +117,15 @@ namespace Lanitlesson
                 else
                 {
                     TextColor.Red("Такого читателя нет!");
-                    //ВЫХОД В МЕНЮ
+                    CRUDSQL.Menu();
                 }
             }
             else
             {
                 TextColor.Red("Такого варианта нет!");
-                //ВЫХОД В МЕНЮ
+                CRUDSQL.Menu();
             }
+            CRUDSQL.Menu();
         }
         public static void CreateSQL()
         {
@@ -138,7 +140,7 @@ namespace Lanitlesson
             string query;
             int columnsNumber;
 
-            TextColor.Green("Если хотите добавить новую книгу, введите 1 \n если хотите добавить нового читателя, нажмите 2");
+            TextColor.Green("Если хотите добавить новую книгу, введите 1 \n если хотите добавить нового читателя, введите 2");
             otvet = Console.ReadLine();
 
             if (otvet == "1")
@@ -327,8 +329,9 @@ namespace Lanitlesson
             else
             {
                 TextColor.Red("Такого варианта нет!");
-                //ВЫХОД В МЕНЮ
+                CRUDSQL.Menu();
             }
+            CRUDSQL.Menu();
         }
 
         public static void UpdateSQL()
@@ -428,8 +431,8 @@ namespace Lanitlesson
                     continue;
                 }
             }
-           
-            //ВЫХОД в МЕНЮ
+
+            CRUDSQL.Menu();
         }
 
         public static void DeleteSQL()
@@ -494,7 +497,7 @@ namespace Lanitlesson
                     continue;
                 }
             }
-        //ВЫХОД в МЕНЮ
+            CRUDSQL.Menu();
         }
 
     }

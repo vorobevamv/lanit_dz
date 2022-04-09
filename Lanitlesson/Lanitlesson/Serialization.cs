@@ -8,35 +8,46 @@ namespace Lanitlesson
         public static void Start()
         {
             string otvet;
+
             string[] arrayCities = new string[] {"Mumansk","Pskov","Vologda","Saint-Petersburg","Arhangel'sk"};
             bool[] arrayBool = new bool[] {true,false};
             string[] arraySex = new string[] {"male","female"};
             Random rnd = new Random();
+
             TextColor.Green("Чтобы запустить сериализацию, введите 1; \n чтобы выйти в главное меню, нажмите другую клавишу");
             otvet = Console.ReadLine();
+
             if (otvet == "1")
             {
                 //создание массива свойств Parent случайной длины
                 int l = rnd.Next(3, 11);
                 int xmlcount=0;
                 string xmltext;
+
                 Console.WriteLine($"l= {l}");
                 Parent[] arrayParents = new Parent[l];
+
                 for (int i = 0; i <= l-1; i++)          //заполнение массива
                 {
                     Child child = new Child();
                     child.Sex = arraySex[rnd.Next(2)];
                     child.Age = rnd.Next(19);
+
                     Parent parent = new Parent(arrayCities[rnd.Next(arrayCities.Length)], rnd.Next(100,20000), arrayBool[rnd.Next(arrayBool.Length)],
                         new DateTime(rnd.Next(1950, 1985), rnd.Next(1,13), rnd.Next(1,29)), child);
+
                     Console.WriteLine($"{parent.City}--{parent.Income}--{parent.IsFree}--{parent.WasBorn}--{parent.ChildType.Sex}--{parent.ChildType.Age}");
+                    
                     arrayParents[i] = parent;
                 }
                 TextColor.Blue("Массив создан");
+
+
                 while (true)
                 {
                     TextColor.Green("Чтобы запустить сериализацию в *json, введите 1; \n чтобы запустить сериализацию в *xml, нажмите 2");
                     otvet = Console.ReadLine();
+
                     if (otvet == "1")               //сериализация *json
                     {
                         try
@@ -44,14 +55,17 @@ namespace Lanitlesson
                             string json = JsonSerializer.Serialize(arrayParents);
                             File.WriteAllText(@"SerialToJSON.json", json);
                             Console.WriteLine(json);
+
                             TextColor.Blue("сериализация в *json проведена, файл создан");
                         }
                         catch (Exception e)
                         {
                             TextColor.Red("Что-то пошло не так..\n" + e.Message);
                         }
+
                         TextColor.Green("Чтобы провести сериализацию этого же массива, введите 1; \n чтобы выйти, нажмите любую другую клавишу");
                         otvet = Console.ReadLine();
+
                         if (otvet == "1")
                         {
                             continue;
@@ -65,6 +79,7 @@ namespace Lanitlesson
                     {
                         xmlcount = 0;
                         xmltext = "<?xml version=\"1.0\"?>\n<root>\n";
+
                         for (int j = 0; j <= l - 1; j++)
                         {
                             xmltext += "<item";
@@ -87,6 +102,7 @@ namespace Lanitlesson
                             xmlcount++;
                         }
                         xmltext += "</root>";
+
                         try
                         {
                             File.WriteAllText(@"SerialToXML.xml", xmltext);
@@ -97,8 +113,10 @@ namespace Lanitlesson
                         {
                             TextColor.Red("Что-то пошло не так..\n" + e.Message);
                         }
+
                         TextColor.Green("Чтобы провести сериализацию этого же массива, введите 1; \n чтобы выйти, нажмите любую другую клавишу");
                         otvet = Console.ReadLine();
+
                         if (otvet == "1")
                         {
                             continue;
