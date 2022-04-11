@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lanitlesson
 {
-    public class CRUDLINQ:Homework
+   public class CRUDLINQ:Homework
     {
         public CRUDLINQ(Mediator mediator) : base(mediator)
         {
@@ -63,7 +63,7 @@ namespace Lanitlesson
             using (DatabaseContext con = new DatabaseContext())
             {
                 var d = from a in con.Autos
-                        join o in con.Owners on a.ownerID equals o.ID
+                        join o in con.Owners on a.OwnerID equals o.ID
                         orderby o.City
                         select new { o.City, a.Model, a.Number, a.Year };
 
@@ -115,7 +115,7 @@ namespace Lanitlesson
                             conn.Close();
                         }
 
-                        var d = from o in con.Orders
+                        var d = from o in con.ClientsAutos
                                 join c in con.Clients on o.clientID equals c.ID
                                 join a in con.Autos on o.autoID equals a.ID
                                 where o.clientID == client.ID
@@ -135,10 +135,10 @@ namespace Lanitlesson
                     }
                 }
             }
-            using (DatabaseContext con = new DatabaseContext())
+            /*using (DatabaseContext con = new DatabaseContext())
             {
                 con.Database.Migrate();
-            }
+            }*/
             CRUDLINQ.Start();
         }
 
@@ -222,7 +222,7 @@ namespace Lanitlesson
                         if (cities.Any(x => x == otvetCity))
                         {
                             var g = from o in con.Owners
-                                    join a in con.Autos on o.ID equals a.ownerID
+                                    join a in con.Autos on o.ID equals a.OwnerID
                                     where o.City == otvetCity
                                     select new { o.City, o.Name, a.Model, a.Number, a.Year };
 
@@ -258,10 +258,10 @@ namespace Lanitlesson
 
                         if (clients.Any(x => x == otvetClient))
                         {
-                            var b = from or in con.Orders
+                            var b = from or in con.ClientsAutos
                                     join c in con.Clients on or.clientID equals c.ID
                                     join a in con.Autos on or.autoID equals a.ID
-                                    join ow in con.Owners on a.ownerID equals ow.ID
+                                    join ow in con.Owners on a.OwnerID equals ow.ID
                                     where c.Name == otvetClient
                                     select new { c.Name, c.License, ow.City, a.Model };
 

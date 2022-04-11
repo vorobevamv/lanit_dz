@@ -8,6 +8,7 @@ namespace Lanitlesson
         {
         
         con.Database.EnsureCreated();
+        con.Database.Migrate();
 
         DbOwners owner1 = new DbOwners();
         owner1.ID = Guid.NewGuid();

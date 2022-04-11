@@ -48,7 +48,6 @@ namespace Lanitlesson
                     break;
             }
         }
-
         public static void ReadSQL()
         {
             string otvet;
@@ -180,13 +179,8 @@ namespace Lanitlesson
                         continue;
                     }
                 }
-                /*columnNames.Add("lib_id");
-                query = "SELECT lib_id FROM Libraries WHERE lib_name = '" + otvetLibrary + "'";
-                string otvetLibID = MSSQL.QueryToList(query, 1, columnNames)[0];
-                columnNames.Clear();*/
-
                 query = "INSERT INTO Books VALUES (NEWID(),'" + otvetAuthor + "','" + otvetTitle + "',(SELECT lib_id FROM Libraries WHERE lib_name = '" + otvetLibrary + "'))";
-                MSSQL.QueryToPrint(query, 0, columnNames);
+                MSSQL.QueryToDo(query);
                 columnNames.Clear();
 
                 columnNames.Add("book_author");
@@ -196,7 +190,7 @@ namespace Lanitlesson
                     "JOIN Libraries AS L ON B.lib_id = L.lib_id " +
                     "WHERE B.book_author = '"+ otvetAuthor + "' AND B.book_title = '"+ otvetTitle + "'";
                 columnsNumber = 3;
-                TextColor.Blue("book_author -- book_title -- lib_name");
+                TextColor.Blue("книга добавлена: \n book_author -- book_title -- lib_name");
                 MSSQL.QueryToPrint(query, columnsNumber, columnNames);
                 columnNames.Clear();
             }
@@ -287,7 +281,7 @@ namespace Lanitlesson
                 }
 
                 query = "INSERT INTO Readers VALUES (NEWID(),'" + otvetSurname + "','" + otvetName + "'," + otvetAge + ") ";
-                MSSQL.QueryToPrint(query, 1, columnNames);
+                MSSQL.QueryToDo(query);
 
                 columnNames.Add("book_id");
                 query = "SELECT book_id FROM Books WHERE book_author = '" + otvetAuthor + "' AND book_title = '" + otvetTitle + "'";
@@ -300,7 +294,7 @@ namespace Lanitlesson
                 columnNames.Clear();
 
                 query = "INSERT INTO BooksReaders VALUES('" + otvetBookID + "','" + otvetReaderID + "')";
-                MSSQL.QueryToPrint(query, 0, columnNames);
+                MSSQL.QueryToDo(query);
 
                 columnNames.Add("reader_surname");
                 columnNames.Add("reader_name");
@@ -315,19 +309,8 @@ namespace Lanitlesson
                     "JOIN Books AS B ON B.book_id = BR.book_id " +
                     "JOIN Libraries AS L ON L.lib_id = B.lib_id " +
                     "WHERE R.reader_surname = '" + otvetSurname + "'AND R.reader_name = '"+ otvetName + "' AND R.reader_age = "+ otvetAge;
-                /*query = "INSERT INTO Readers VALUES (NEWID(),'"+ otvetSurname + "','"+ otvetName + "',"+ otvetAge + ") " +
-                    "INSERT INTO BooksReaders VALUES " +
-                    "((SELECT book_id FROM Books WHERE book_author = '"+ otvetAuthor + "' AND book_title = '"+ otvetTitle + "'), " +
-                    "(SELECT reader_id FROM Readers WHERE reader_surname = '"+ otvetSurname + "'AND reader_name = '"+ otvetName + "' AND reader_age = "+ otvetAge + ")) " +
-                    "SELECT R.reader_surname, R.reader_name, R.reader_age, L.lib_name, L.lib_adress, B.book_author, B.book_title " +
-                    "FROM Readers AS R " +
-                    "JOIN BooksReaders AS BR ON R.reader_id = BR.reader_id " +
-                    "JOIN Books AS B ON B.book_id = BR.book_id " +
-                    "JOIN Libraries AS L ON L.lib_id = B.lib_id " +
-                    "WHERE R.reader_surname = '"+ otvetSurname + "'AND R.reader_name = '"+ otvetName + "' AND R.reader_age = "+ otvetAge + "";
-                */
                 columnsNumber = 7;
-                TextColor.Blue("reader_surname -- reader_name -- reader_age -- lib_name -- lib_adress -- book_author -- book_title");
+                TextColor.Blue("читатель добавлен: \n reader_surname -- reader_name -- reader_age -- lib_name -- lib_adress -- book_author -- book_title");
                 MSSQL.QueryToPrint(query, columnsNumber, columnNames);
                 columnNames.Clear();
             }
@@ -338,10 +321,8 @@ namespace Lanitlesson
             }
             CRUDSQL.Start();
         }
-
         public static void UpdateSQL()
         {
-            string otvet;
             string otvetSurname;
             string otvetName;
             int otvetAge;
@@ -355,7 +336,8 @@ namespace Lanitlesson
             columnNames.Add("reader_name");
             columnNames.Add("reader_age");
             query = "SELECT reader_surname, reader_name, reader_age FROM Readers ORDER BY reader_surname";
-            MSSQL.QueryToPrint(query, 3, columnNames);
+            columnsNumber = 3;
+            MSSQL.QueryToPrint(query, columnsNumber, columnNames);
             columnNames.Clear();
 
             columnNames.Add("reader_surname");
@@ -418,7 +400,8 @@ namespace Lanitlesson
                                 "WHERE reader_surname = '" + otvetSurname + "' AND reader_name = '" + otvetName + "' " +
                                 "SELECT reader_surname,reader_name, reader_age FROM Readers " +
                                 "WHERE reader_surname = '" + otvetSurname + "' AND reader_name = '" + otvetName + "'";
-                            MSSQL.QueryToPrint(query, 3, columnNames);
+                            columnsNumber = 3;
+                            MSSQL.QueryToPrint(query, columnsNumber, columnNames);
                             columnNames.Clear();
                             break;
                         }
@@ -436,13 +419,10 @@ namespace Lanitlesson
                     continue;
                 }
             }
-
             CRUDSQL.Start();
         }
-
         public static void DeleteSQL()
         {
-            string otvet;
             string otvetAuthor;
             string otvetTitle;
             List<string> columnNames = new List<string>();
@@ -454,7 +434,8 @@ namespace Lanitlesson
             columnNames.Add("book_author");
             columnNames.Add("book_title");
             query = "SELECT book_author, book_title FROM Books ORDER BY book_author";
-            MSSQL.QueryToPrint(query, 2, columnNames);
+            columnsNumber = 2;
+            MSSQL.QueryToPrint(query, columnsNumber, columnNames);
             columnNames.Clear();
 
             columnNames.Add("book_author");
@@ -482,7 +463,7 @@ namespace Lanitlesson
                         {
                             query = "DELETE FROM Books " +
                                 "WHERE book_author = '"+otvetAuthor+"' AND book_title = '"+otvetTitle+"'";
-                            MSSQL.QueryToPrint(query, 0, columnNames);
+                            MSSQL.QueryToDo(query);
                             columnNames.Clear();
 
                             TextColor.Blue($"Информация о книге ({otvetAuthor} '{otvetTitle}') удалена");
@@ -504,6 +485,5 @@ namespace Lanitlesson
             }
             CRUDSQL.Start();
         }
-
     }
 }
