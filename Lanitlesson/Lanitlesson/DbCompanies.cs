@@ -11,27 +11,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lanitlesson
 {
-    public class DbOwners
+    public class DbCompanies
     {
-        public const string TableName = "Owners";
+        public const string TableName = "Companies";
         public Guid ID { get; set; }
         public string Name { get; set; }
         public string City { get; set; }
-        public ICollection<DbAutos> Autos { get; set; }
+        public ICollection<DbCars> Cars { get; set; }
 
-        public DbOwners()
+        public DbCompanies()
         {
-            Autos = new HashSet<DbAutos>();
+            Cars = new HashSet<DbCars>();
         }
      
     }
-    public class OwnersConfiguration : IEntityTypeConfiguration<DbOwners>
+    public class CompaniesConfiguration : IEntityTypeConfiguration<DbCompanies>
     {
-        public void Configure(EntityTypeBuilder<DbOwners> builder)
+        public void Configure(EntityTypeBuilder<DbCompanies> builder)
         {
-            builder.ToTable(DbOwners.TableName);
+            builder.ToTable(DbCompanies.TableName);
             builder.HasKey(t => t.ID);
-            builder.HasMany(o => o.Autos).WithOne(w => w.Owners);
+            builder.HasMany(o => o.Cars).WithOne(w => w.Companies);
         }
     }
 }

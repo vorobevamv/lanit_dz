@@ -11,20 +11,20 @@ namespace Lanitlesson
 {
     internal class DatabaseContext : DbContext
     {
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //для работы классов конфигураций
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }
+        }*/
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost\\sqlexpress01;Database=DBRentCars; Trusted_Connection=True");
+            optionsBuilder.UseSqlServer("Server=localhost\\sqlexpress;Database=DBCarsForRent; Trusted_Connection=True");
         }
 
-        public DbSet<DbAutos> Autos { get; set; }
-        public DbSet<DbOwners> Owners { get; set; }
-        public DbSet<DbClients> Clients { get; set; }
-        public DbSet<DbClientsAutos> ClientsAutos { get; set; }
+        public DbSet<DbCars> Cars { get; set; }
+        public DbSet<DbCompanies> Companies { get; set; }
+        public DbSet<DbCustomers> Customers { get; set; }
+        public DbSet<DbCustomersCars> CustomersCars { get; set; }
     }
    
 }

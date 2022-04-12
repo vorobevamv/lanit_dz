@@ -10,6 +10,23 @@ namespace Lanitlesson
         con.Database.EnsureCreated();
         con.Database.Migrate();
 
+         DbCustomers customer = new DbCustomers();
+                customer.ID = Guid.NewGuid();
+                customer.Name = "Ivanov";
+                customer.License = "78 11 111111";
+                con.Customers.Add(customer);
+
+                DbCompanies company = new DbCompanies();
+                company.ID = Guid.NewGuid();
+                company.Name = "NothStar";
+                company.City = "Murmansk";
+                con.Companies.Add(company);
+
+
+
+
+
+
         DbOwners owner1 = new DbOwners();
         owner1.ID = Guid.NewGuid();
         owner1.Name = "NothStar";

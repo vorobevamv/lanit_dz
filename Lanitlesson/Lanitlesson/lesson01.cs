@@ -14,29 +14,23 @@ namespace Lanitlesson
     {
         static void Main()
         {
-
-
             using (DatabaseContext con = new DatabaseContext())
             {
-
-                //var owner1 = con.Owners.Where(x => x.City == "Murmansk").FirstOrDefault();
-                // var owner2 = con.Owners.Where(x => x.City == "Kaliningrad").FirstOrDefault();
-                // var owner3 = con.Owners.Where(x => x.City == "Vladivostok").FirstOrDefault();
-                //var owner4 = con.Owners.Where(x => x.City == "Krasnodar").FirstOrDefault();
+                con.Database.EnsureCreated();
+                //con.Database.Migrate();
 
 
-                con.Autos.Add(new DbAutos {ID = Guid.NewGuid(), Model = "Mazda", Year = 2007, 
-                    OwnerID = new Guid("5A905335-AA28-4C35-9CB6-2602F2CC7652"), Number = "M222MM"});
+                DbCars car = new DbCars();
+                car.ID = Guid.NewGuid();
+                car.Model = "Ford";
+                car.Number = "М111ММ";
+                car.Year = 2007;
+                car.CompanyID = new Guid("41B8CA89-4FD0-4C9E-AB84-DEA9C9C358E4");
+                con.Cars.Add(car);
 
-                //con.Owners.Add(new DbOwners { ID = Guid.NewGuid(), City = "Pskov", Name = "fgfgfg" });
-                //con.Clients.Add(new DbClients { ID = Guid.NewGuid(), Name = "Belyi", License = "99 11 333333" });
-                //con.ClientsAutos.Add(new DbClientsAutos { clientID = new Guid("9FD2BD32-C558-4011-938C-1947E4777C92"), autoID = Guid.NewGuid()});
-                
+
                 con.SaveChanges();
-
             }
-
-
 
 
 

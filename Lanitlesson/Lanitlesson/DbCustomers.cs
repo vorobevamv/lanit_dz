@@ -11,26 +11,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lanitlesson
 {
-    public class DbClients
+    public class DbCustomers
     {
-        public const string TableName = "Clients";
+        public const string TableName = "Customers";
         public Guid ID { get; set; }
         public string Name { get; set; }
         public string License { get; set; }
-       /* public ICollection<DbClientsAutos> ClientsAutos { get; set; }
+        public ICollection<DbCustomersCars> CustomersCars { get; set; }
 
-        public DbClients()
+        public DbCustomers()
         {
-            ClientsAutos = new HashSet<DbClientsAutos>();
-        }*/
+            CustomersCars = new HashSet<DbCustomersCars>();
+        }
     }
-    public class ClientsConfiguration : IEntityTypeConfiguration<DbClients>
+    public class CustomersConfiguration : IEntityTypeConfiguration<DbCustomers>
     {
-        public void Configure(EntityTypeBuilder<DbClients> builder)
+        public void Configure(EntityTypeBuilder<DbCustomers> builder)
         {
-            builder.ToTable(DbClients.TableName);
+            builder.ToTable(DbCustomers.TableName);
             builder.HasKey(t => t.ID);
-          //  builder.HasMany(y => y.ClientsAutos).WithOne(c => c.Clients);
+            builder.HasMany(y => y.CustomersCars).WithOne(c => c.Customers);
         }
     }
 }

@@ -11,31 +11,31 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Lanitlesson
 {
     [DbContextAttribute(typeof(DatabaseContext))]
-    [Migration("20220411163000_InitialCreateTables")]
+    [Migration("20220412153000_InitialCreateTables")]
     internal class InitialCreateTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable
                 (
-                name: DbAutos.TableName,
+                name: DbCars.TableName,
                 columns: table => new
                 {
                     ID = table.Column<Guid>(nullable: false),
                     Model = table.Column<string>(nullable: false),
                     Number = table.Column<string>(nullable: false),
                     Year = table.Column<int>(nullable: false),
-                    OwnerID = table.Column<Guid>(nullable: false)
+                    CompanyID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Autos", x => x.ID);
+                    table.PrimaryKey("PK_Cars", x => x.ID);
                 }
                 );
 
             migrationBuilder.CreateTable
                 (
-                name: DbOwners.TableName,
+                name: DbCompanies.TableName,
                 columns: table => new
                 {
                     ID = table.Column<Guid>(nullable: false),
@@ -44,13 +44,13 @@ namespace Lanitlesson
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Owners", x => x.ID);
+                    table.PrimaryKey("PK_Companies", x => x.ID);
                 }
                 );
 
             migrationBuilder.CreateTable
                 (
-                name: DbClients.TableName,
+                name: DbCustomers.TableName,
                 columns: table => new
                 {
                     ID = table.Column<Guid>(nullable: false),
@@ -59,21 +59,23 @@ namespace Lanitlesson
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clients", x => x.ID);
+                    table.PrimaryKey("PK_Customers", x => x.ID);
                 }
                 );
 
             migrationBuilder.CreateTable
                 (
-                name: DbClientsAutos.TableName,
+                name: DbCustomersCars.TableName,
                 columns: table => new
                 {
-                    clientID = table.Column<Guid>(nullable: false),
-                    autoID = table.Column<Guid>(nullable: false)
+                    ID = table.Column<Guid>(nullable: false),
+                    CustomerID = table.Column<Guid>(nullable: false),
+                    CarID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClientsAutos", x => new {x.clientID, x.autoID}); //ключ по уникальному сочетанию двух столбцов
+                    //table.PrimaryKey("PK_ClientsAutos", x => new { x.clientID, x.autoID }); //ключ по уникальному сочетанию двух столбцов
+                    table.PrimaryKey("PK_CustomersCars", x => x.ID);
                 }
                 );
         }
