@@ -8,11 +8,9 @@ namespace Lanitlesson
     class CRUDSQL:Homework
 
     {
-        public CRUDSQL(Mediator mediator) : base(mediator)
-        {
-        }
+        public CRUDSQL(IMediator mediator) : base(mediator) { }
 
-        public static void Start() //Menu
+        public override void Start() //Menu
         {
             string otvetSQL;
 
@@ -86,7 +84,7 @@ namespace Lanitlesson
                 else
                 {
                     TextColor.Red("Такого автора нет!");
-                    CRUDSQL.Start();
+                    //CRUDSQL.Start();
                 }
             }
             else if (otvet == "2")
@@ -121,15 +119,15 @@ namespace Lanitlesson
                 else
                 {
                     TextColor.Red("Такого читателя нет!");
-                    CRUDSQL.Start();
+                    //CRUDSQL.Start();
                 }
             }
             else
             {
                 TextColor.Red("Такого варианта нет!");
-                CRUDSQL.Start();
+                //CRUDSQL.Start();
             }
-            CRUDSQL.Start();
+            //CRUDSQL.Start();
         }
         public static void CreateSQL()
         {
@@ -317,9 +315,9 @@ namespace Lanitlesson
             else
             {
                 TextColor.Red("Такого варианта нет!");
-                CRUDSQL.Start();
+                //CRUDSQL.Start();
             }
-            CRUDSQL.Start();
+            //CRUDSQL.Start();
         }
         public static void UpdateSQL()
         {
@@ -419,7 +417,7 @@ namespace Lanitlesson
                     continue;
                 }
             }
-            CRUDSQL.Start();
+            //CRUDSQL.Start();
         }
         public static void DeleteSQL()
         {
@@ -483,7 +481,7 @@ namespace Lanitlesson
                     continue;
                 }
             }
-            CRUDSQL.Start();
+            //CRUDSQL.Start();
         }
     }
 }

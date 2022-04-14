@@ -6,11 +6,9 @@ namespace Lanitlesson
 {
    public class CRUDLINQ:Homework
     {
-        public CRUDLINQ(Mediator mediator) : base(mediator)
-        {
-        }
+        public CRUDLINQ(IMediator mediator) : base(mediator) { }
 
-        public static void Start() //Menu
+        public override void Start() //Menu
         {
             string otvetLINQ;
 
@@ -139,7 +137,7 @@ namespace Lanitlesson
             {
                 con.Database.Migrate();
             }*/
-            CRUDLINQ.Start();
+            //CRUDLINQ.Start();
         }
 
         public static void Update()
@@ -190,7 +188,7 @@ namespace Lanitlesson
                     }
                 }
             }
-            CRUDLINQ.Start();
+           // CRUDLINQ.Start();
         }
 
         public static void Read()
@@ -283,7 +281,7 @@ namespace Lanitlesson
             {
                 TextColor.Red("Такого варианта нет!");
             }
-            CRUDLINQ.Start();
+            //CRUDLINQ.Start();
         }
 
         public static void Delete()
@@ -334,7 +332,8 @@ namespace Lanitlesson
                                 }
                                 else
                                 {
-                                    CRUDLINQ.Start();
+                                    //CRUDLINQ.Start();
+                                    break;
                                 }
                             }
                             else
@@ -354,7 +353,7 @@ namespace Lanitlesson
                 }
                 con.Database.Migrate();
             }
-            CRUDLINQ.Start();
+            //CRUDLINQ.Start();
         }
     }
 }

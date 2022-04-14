@@ -2,7 +2,7 @@
 
 namespace Lanitlesson
 {
-    class MenuDZ
+    /*class MenuDZ
 
     {
         public static void Call()
@@ -49,5 +49,5 @@ namespace Lanitlesson
                     break;
             }
         }
-    }
+    }*/
 }

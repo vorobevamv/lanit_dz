@@ -18,7 +18,7 @@ namespace Lanitlesson
         }*/
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost\\sqlexpress;Database=DBCarsForRent; Trusted_Connection=True");
+            optionsBuilder.UseSqlServer("Server=localhost\\sqlexpress;Database=DBRentCars; Trusted_Connection=True");
         }
 
         public DbSet<DbCars> Cars { get; set; }

@@ -5,12 +5,10 @@ namespace Lanitlesson
 {
     class Fibonachchi : Homework
     {
-        public Fibonachchi (Mediator mediator)
-           : base(mediator)
-        {
-        }
+        public Fibonachchi(IMediator mediator) : base(mediator){ }
+        
 
-        public static void Start() //CountFibo
+        public override void Start() //CountFibo
         {
             int countFibo=0;
             string otvet;

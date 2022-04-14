@@ -5,12 +5,9 @@ namespace Lanitlesson
 {
     class Konek:Homework
     {
-        public Konek (Mediator mediator)
-           : base(mediator)
-        {
-        }
+        public Konek (IMediator mediator) : base(mediator) { }
 
-        public static void Start() //ReadKonek
+        public override void Start() //ReadKonek
         {
             using (StreamReader stream = new StreamReader("konyok-gorbunok.txt"))
             {

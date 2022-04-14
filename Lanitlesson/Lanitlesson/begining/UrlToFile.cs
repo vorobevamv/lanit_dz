@@ -8,11 +8,9 @@ namespace Lanitlesson
 {
     public class UrlToFile: Homework
     {
-        public UrlToFile(Mediator mediator)
-            : base(mediator)
-        {
-        }
-        public static void Start() //ToFile
+        public UrlToFile(IMediator mediator) : base(mediator) { }
+
+        public override void Start() //ToFile
         {
 
             WebClient web = new WebClient();

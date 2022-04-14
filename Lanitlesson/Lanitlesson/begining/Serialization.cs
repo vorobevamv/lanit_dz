@@ -5,11 +5,9 @@ namespace Lanitlesson
 {
     internal class Serialization:Homework
     {
-        public Serialization (Mediator mediator)
-           : base(mediator)
-        {
-        }
-        public static void Start()
+        public Serialization(IMediator mediator) : base(mediator) { }
+
+        public override void Start()
         {
             string otvet;
 

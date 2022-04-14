@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Lanitlesson
 {
     [DbContextAttribute(typeof(DatabaseContext))]
-    [Migration("20220412153000_InitialCreateTables")]
+    [Migration("20220412185100_InitialCreateTables")]
     internal class InitialCreateTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
