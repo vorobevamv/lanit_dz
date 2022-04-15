@@ -24,4 +24,3 @@ namespace Lanitlesson02
                 });
     }
 }
-//рср аег хглемемхи
