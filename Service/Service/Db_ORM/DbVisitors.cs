@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Lanitlesson02
+namespace Service
 {
     public class DbVisitors
     {
@@ -29,5 +29,4 @@ namespace Lanitlesson02
             builder.HasMany(cv => cv.ClubsVisitors).WithOne(v => v.Visitors);
         }
     }
-
 }

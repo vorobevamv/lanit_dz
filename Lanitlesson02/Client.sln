@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lanitlesson02", "Lanitlesson02\Lanitlesson02.csproj", "{8BFCD198-AE17-4EB4-85F5-11AA3BAC9670}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Lanitlesson02\Client.csproj", "{8BFCD198-AE17-4EB4-85F5-11AA3BAC9670}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{2D43BE20-8EF1-4D2E-83CB-68AFEDDA2ADF}"
 EndProject

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Lanitlesson02
+namespace Service
 {
     [DbContextAttribute(typeof(DatabaseContext))]
     [Migration("20220415143000_InitialCreateTables")]

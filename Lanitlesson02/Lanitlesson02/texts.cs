@@ -1,6 +1,23 @@
 ﻿
 /*
  * 
+ * 
+ *  [HttpPost("createvisitor")]
+        public List<string> createvisitor(
+            [FromServices] IValidator<CreateVisitorRequest> validator,
+            [FromBody] CreateVisitorRequest request)
+        {
+            var validationResult = validator.Validate(request);
+
+            if (!validationResult.IsValid)                               //IsValid - no errors; !xxx.IsValid - errors
+            {
+                return validationResult.Errors.Select(x => x.ErrorMessage).ToList();              //из массива Errors (сформировался автоматически) выбираем сообщения
+            }
+            return new List<string>() {"validation passed"};
+            
+        }
+ * _________________________________________________
+ * 
  *
 public class ClubReq
 {
@@ -16,7 +33,7 @@ public class CluVisReq
     public string VisName { get; set; }
 }
 
-
+_________________________________________________________________
 
 [ApiController]
     [Route("[controller]")]

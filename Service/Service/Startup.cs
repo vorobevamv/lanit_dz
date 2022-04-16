@@ -14,18 +14,29 @@ using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using MassTransit;
 
-namespace Client
+namespace Service
 {
     public class Startup
     {
-              // This method gets called by the runtime. Use this method to add services to the container.
+      
+        public Startup()
+        {
+            using (DatabaseContext con = new DatabaseContext())
+            {
+                con.Database.Migrate();
+            }
+        }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers();
-            services.AddTransient<IValidator<Models.CreateVisitorRequest>, ValidateCreateVisitorRequest>();
+
 
             services.AddMassTransit(mt =>
             {
+                mt.AddConsumer<CreateVistorConsumer>();
                 mt.UsingRabbitMq((context, config) =>
                 {
                     config.Host("localhost", "/", host =>
@@ -35,14 +46,18 @@ namespace Client
                         host.Password("guest");
 
                     });
+                    config.ReceiveEndpoint("createvisitor", x =>
+                    {
+                        x.ConfigureConsumer<CreateVistorConsumer>(context);
+                    });
                 });
-                mt.AddRequestClient<Models.CreateVisitorRequest>(new Uri("rabbitmq://localhost/createvisitor"));  //createvisitor - произвольное имя очереди
             });
 
             services.AddMassTransitHostedService();
-            services.AddTransient<ICreateVisitorCommand, CreateVisitorCommand>();
-            
 
+            services.AddTransient<IVisitorRepository, VisitorsRepository>(); 
+            services.AddTransient<ICreateVisitorRequestMapper, CreateVisitorRequestMapper>();
+            services.AddTransient<ICreateVisitorResponseMapper, CreateVisitorResponseMapper>();
 
         }
 

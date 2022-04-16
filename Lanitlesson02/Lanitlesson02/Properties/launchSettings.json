@@ -5,9 +5,9 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:32286",
-      "sslPort": 44355  //изначально здесь стоял "0"
+      "sslPort": 44355 //изначально здесь стоял "0"
     }
-  },
+  }
   /*"profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Lanitlesson02": {
+    "Client": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
