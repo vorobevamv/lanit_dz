@@ -1,6 +1,6 @@
 ﻿namespace Models
 {
-    public class CreateVistorRequest
+    public class CreateVisitorRequest
     {
         public string Name { get; set; }
         public int Age { get; set; }

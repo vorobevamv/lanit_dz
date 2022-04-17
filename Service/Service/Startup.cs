@@ -36,7 +36,7 @@ namespace Service
 
             services.AddMassTransit(mt =>
             {
-                mt.AddConsumer<CreateVistorConsumer>();
+                mt.AddConsumer<CreateVisitorConsumer>();
                 mt.UsingRabbitMq((context, config) =>
                 {
                     config.Host("localhost", "/", host =>
@@ -48,7 +48,7 @@ namespace Service
                     });
                     config.ReceiveEndpoint("createvisitor", x =>
                     {
-                        x.ConfigureConsumer<CreateVistorConsumer>(context);
+                        x.ConfigureConsumer<CreateVisitorConsumer>(context);
                     });
                 });
             });

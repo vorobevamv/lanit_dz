@@ -4,7 +4,7 @@ namespace Service
 {
     public class CreateVisitorRequestMapper: ICreateVisitorRequestMapper
     {
-        public DbVisitors MapToDbVisitors(Models.CreateVistorRequest request)
+        public DbVisitors MapToDbVisitors(Models.CreateVisitorRequest request)
         {
             DbVisitors visitor = new DbVisitors()
             {

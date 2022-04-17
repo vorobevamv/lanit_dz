@@ -34,7 +34,7 @@ namespace Client
             if (a.IsValid)                               //IsValid - no errors; !xxx.IsValid - errors
             {
                 var r = await rc.GetResponse<Models.CreateVisitorResponse>(request, default, default);   //отправляет запрос и ждёт ответ, обозначение типа ответа - CreateVisitorResponse; request - экземпляр запроса CreateVisitorRequest (конкретный запрос)
-                return (Models.CreateVisitorResponse)r;
+                return r.Message;
             }
             return new Models.CreateVisitorResponse { Result = "It is failed", ValidationErrors = a.Errors.Select(x=>x.ErrorMessage).ToList() };
 
