@@ -6,9 +6,11 @@ using System.Text.RegularExpressions;
 
 namespace Lanitlesson
 {
-    class UrlToFile
+    public class UrlToFile: Homework
     {
-        public static void ToFile()
+        public UrlToFile(IMediator mediator) : base(mediator) { }
+
+        public override void Start() //ToFile
         {
 
             WebClient web = new WebClient();

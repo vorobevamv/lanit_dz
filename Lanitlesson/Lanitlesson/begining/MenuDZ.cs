@@ -2,7 +2,7 @@
 
 namespace Lanitlesson
 {
-    class MenuDZ
+    /*class MenuDZ
 
     {
         public static void Call()
@@ -21,22 +21,22 @@ namespace Lanitlesson
             switch (mainOtvet)
             {
                 case "1":
-                    Konek.ReadKonek();
+                   Konek.Start();
                     break;
                 case "2":
-                    UrlToFile.ToFile();
+                   UrlToFile.Start();
                     break;
                 case "3":
-                    Fibonachchi.CountFibo();
+                   Fibonachchi.Start();
                     break;
                case "4":
                     Serialization.Start();;
                     break;
                 case "5":
-                    CRUDSQL.Menu();
+                    CRUDSQL.Start();
                     break;
                 case "6":
-                    CRUDLINQ.Menu();
+                   CRUDLINQ.Start();
                     break;
                 case "0":
                     //Environment.Exit(0);
@@ -49,5 +49,5 @@ namespace Lanitlesson
                     break;
             }
         }
-    }
+    }*/
 }

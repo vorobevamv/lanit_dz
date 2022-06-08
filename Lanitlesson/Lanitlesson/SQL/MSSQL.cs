@@ -8,9 +8,7 @@ namespace Lanitlesson
     {
         public static List<string> QueryToList(string query, int columnsNumber, List<string> columnNames)
         {
-
             List<string> MSSQLanswer = new List<string>();
-
 
             string connString = "Server=localhost\\sqlexpress01;Database=LibrariesDB;Trusted_Connection=True";
             SqlConnection conn = new SqlConnection(connString);
@@ -19,14 +17,11 @@ namespace Lanitlesson
                 conn.Open();
                 string sqlQuery = @query;
                 using (SqlCommand command = new SqlCommand(sqlQuery, conn))
-
                 {
                     for (int i = 0; i < columnsNumber; i++)
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
-
                         {
-
                             while (reader.Read())
                             {
                                 //Console.WriteLine($"{reader[columnNames[i]]}");
@@ -34,7 +29,6 @@ namespace Lanitlesson
                             }
                         }
                     }
-                    int n = command.ExecuteNonQuery();
                 }
             }
             catch (Exception e)
@@ -45,15 +39,10 @@ namespace Lanitlesson
             {
                 conn.Close();
             }
-
             return MSSQLanswer;
         }
-
-
-
         public static void QueryToPrint (string query, int columnsNumber, List<string> columnNames)
         {
-
             string connString = "Server=localhost\\sqlexpress01;Database=LibrariesDB;Trusted_Connection=True";
             SqlConnection conn = new SqlConnection(connString);
             try
@@ -61,7 +50,6 @@ namespace Lanitlesson
                 conn.Open();
                 string sqlQuery = @query;
                 using (SqlCommand command = new SqlCommand(sqlQuery, conn))
-
                 {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -75,6 +63,27 @@ namespace Lanitlesson
                                 Console.Write("\n");
                             }
                         }
+                }
+            }
+            catch (Exception e)
+            {
+                TextColor.Red("Что-то пошло не так..\n" + e.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        public static void QueryToDo(string query)
+        {
+            string connString = "Server=localhost\\sqlexpress01;Database=LibrariesDB;Trusted_Connection=True";
+            SqlConnection conn = new SqlConnection(connString);
+            try
+            {
+                conn.Open();
+                string sqlQuery = @query;
+                using (SqlCommand command = new SqlCommand(sqlQuery, conn))
+                {
                     int n = command.ExecuteNonQuery();
                 }
             }

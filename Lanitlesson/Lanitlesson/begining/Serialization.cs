@@ -3,9 +3,11 @@ using System.Text.Json;
 
 namespace Lanitlesson
 {
-    internal class Serialization
+    internal class Serialization:Homework
     {
-        public static void Start()
+        public Serialization(IMediator mediator) : base(mediator) { }
+
+        public override void Start()
         {
             string otvet;
 
@@ -133,7 +135,7 @@ namespace Lanitlesson
                     }
                 }
             }
-            MenuDZ.Call();
+            //MenuDZ.Call();
         }
     }
 }

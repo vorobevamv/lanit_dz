@@ -4,9 +4,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lanitlesson
 {
-    internal class CRUDLINQ
+   public class CRUDLINQ:Homework
     {
-        public static void Menu()
+        public CRUDLINQ(IMediator mediator) : base(mediator) { }
+
+        public override void Start() //Menu
         {
             string otvetLINQ;
 
@@ -14,8 +16,8 @@ namespace Lanitlesson
                 "добавить данные о новом клиенте - введите 1\n " +
                 "посмотреть данные об аренде автомобилей или данные о клиенте  - введите 2\n " +
                 "уточнить номер водительского удостоверения клиента - введите 3\n " +
-                "уточнить номер водительского удостоверения клиента - введите 4\n " +
-                "ВЫХОД - введите 0");
+                "удалить данные о клиенте - введите 4\n ");
+                //+"ВЫХОД - введите 0");
 
             otvetLINQ = Console.ReadLine();
 
@@ -33,12 +35,12 @@ namespace Lanitlesson
                 case "4":
                     CRUDLINQ.Delete();
                     break;
-                case "0":
+                /*case "0":
                     MenuDZ.Call();
-                    break;
+                    break;*/
                 default:
                     TextColor.Red("в меню нет такого пункта");
-                    CRUDSQL.Menu();
+                    //CRUDSQL.Start();
                     break;
             }
         }
@@ -47,7 +49,7 @@ namespace Lanitlesson
         {
             string otvetName;
             string otvetLicense;
-            string otvetAuto;
+            string otvetCar;
 
             TextColor.Green("Введите фамилию нового клиента");
             otvetName = Console.ReadLine();
@@ -58,8 +60,8 @@ namespace Lanitlesson
 
             using (DatabaseContext con = new DatabaseContext())
             {
-                var d = from a in con.Autos
-                        join o in con.Owners on a.ownerID equals o.ID
+                var d = from a in con.Cars
+                        join o in con.Companies on a.CompanyID equals o.ID
                         orderby o.City
                         select new { o.City, a.Model, a.Number, a.Year };
 
@@ -73,30 +75,30 @@ namespace Lanitlesson
             while (true)
             {
                 TextColor.Green("Введите марку автомобиля");
-                otvetAuto = Console.ReadLine();
+                otvetCar = Console.ReadLine();
 
                 using (DatabaseContext con = new DatabaseContext())
                 {
-                    var models = con.Autos.Select(x => x.Model).ToList();
+                    var models = con.Cars.Select(x => x.Model).ToList();
 
-                    if (models.Any(x => x == otvetAuto))
+                    if (models.Any(x => x == otvetCar))
                     {
-                        DbClients client = new DbClients();
-                        client.ID = Guid.NewGuid();
-                        client.Name = otvetName;
-                        client.License = otvetLicense;
+                        DbCustomers customer = new DbCustomers();
+                        customer.ID = Guid.NewGuid();
+                        customer.Name = otvetName;
+                        customer.License = otvetLicense;
 
-                        con.Clients.Add(client);
+                        con.Customers.Add(customer);
                         con.SaveChanges();
 
-                        var autoID = con.Autos.Where(x => x.Model == otvetAuto).FirstOrDefault().ID;
+                        var CarID = con.Cars.Where(x => x.Model == otvetCar).FirstOrDefault().ID;
 
                         string connString = "Server=localhost\\sqlexpress01;Database=OrdersDB;Trusted_Connection=True";
                         SqlConnection conn = new SqlConnection(connString);
                         try
                         {
                             conn.Open();
-                            string sqlQuery = @"INSERT INTO Orders VALUES ('" + client.ID + "', '" + autoID + "')";
+                            string sqlQuery = @"INSERT INTO Orders VALUES ('" + customer.ID + "', '" + CarID + "')";
                             using (SqlCommand command = new SqlCommand(sqlQuery, conn))
                             {
                                 int n = command.ExecuteNonQuery();
@@ -111,10 +113,10 @@ namespace Lanitlesson
                             conn.Close();
                         }
 
-                        var d = from o in con.Orders
-                                join c in con.Clients on o.clientID equals c.ID
-                                join a in con.Autos on o.autoID equals a.ID
-                                where o.clientID == client.ID
+                        var d = from o in con.CustomersCars
+                                join c in con.Customers on o.CustomerID equals c.ID
+                                join a in con.Cars on o.CarID equals a.ID
+                                where o.CustomerID == customer.ID
                                 select new { c.Name, c.License, a.Model, a.Number, a.Year };
 
                         foreach (var p in d)
@@ -131,11 +133,11 @@ namespace Lanitlesson
                     }
                 }
             }
-            using (DatabaseContext con = new DatabaseContext())
+            /*using (DatabaseContext con = new DatabaseContext())
             {
                 con.Database.Migrate();
-            }
-            CRUDLINQ.Menu();
+            }*/
+            //CRUDLINQ.Start();
         }
 
         public static void Update()
@@ -147,8 +149,8 @@ namespace Lanitlesson
 
             using (DatabaseContext con = new DatabaseContext())
             {
-                var d = (from c in con.Clients orderby c.Name select new { c.Name, c.License }).Distinct();
-                var clients = con.Clients.Select(x => x.Name).ToList();
+                var d = (from c in con.Customers orderby c.Name select new { c.Name, c.License }).Distinct();
+                var customers = con.Customers.Select(x => x.Name).ToList();
                 foreach (var p in d)
                 {
                     Console.WriteLine(p.Name + "--" + p.License);
@@ -159,19 +161,19 @@ namespace Lanitlesson
                     TextColor.Green("Введите фамилию клиента");
                     otvetName = Console.ReadLine();
 
-                    if (clients.Any(x => x == otvetName))
+                    if (customers.Any(x => x == otvetName))
                     {
                         TextColor.Green("Введите новый номер водительского удостоверения");
                         otvetLicense = Console.ReadLine();
 
-                        var l = con.Clients.Where(x => x.Name == otvetName).FirstOrDefault();
+                        var l = con.Customers.Where(x => x.Name == otvetName).FirstOrDefault();
                         l.License = otvetLicense;
                         con.SaveChanges();
                         con.Database.Migrate();
 
                         TextColor.Blue("Данные изменены");
 
-                        var g = from c in con.Clients.Where(x => x.License == otvetLicense) select new { c.Name, c.License };
+                        var g = from c in con.Customers.Where(x => x.License == otvetLicense) select new { c.Name, c.License };
                         foreach (var p in g)
                         {
                             Console.WriteLine(p.Name + "--" + p.License);
@@ -186,14 +188,14 @@ namespace Lanitlesson
                     }
                 }
             }
-            CRUDLINQ.Menu();
+           // CRUDLINQ.Start();
         }
 
         public static void Read()
         {
             string otvet;
             string otvetCity;
-            string otvetClient;
+            string otvetCustomer;
 
             TextColor.Green("Посмотреть аренду авто в вашем городе, введите 1 \n посмотреть поезки клиента, введите 2");
             otvet = Console.ReadLine();
@@ -203,7 +205,7 @@ namespace Lanitlesson
                 using (DatabaseContext con = new DatabaseContext())
                 {
                     TextColor.Blue("Услуги аренды есть в следующих городах:");
-                    var cities = con.Owners.Select(x => x.City).Distinct().ToList();
+                    var cities = con.Companies.Select(x => x.City).Distinct().ToList();
                     foreach (var p in cities)
                     {
                         Console.WriteLine(p);
@@ -217,8 +219,8 @@ namespace Lanitlesson
 
                         if (cities.Any(x => x == otvetCity))
                         {
-                            var g = from o in con.Owners
-                                    join a in con.Autos on o.ID equals a.ownerID
+                            var g = from o in con.Companies
+                                    join a in con.Cars on o.ID equals a.CompanyID
                                     where o.City == otvetCity
                                     select new { o.City, o.Name, a.Model, a.Number, a.Year };
 
@@ -241,8 +243,8 @@ namespace Lanitlesson
                 using (DatabaseContext con = new DatabaseContext())
                 {
                     TextColor.Blue("Список клиентов:");
-                    var clients = con.Clients.Select(x => x.Name).Distinct().ToList();
-                    foreach (var p in clients)
+                    var customers = con.Customers.Select(x => x.Name).Distinct().ToList();
+                    foreach (var p in customers)
                     {
                         Console.WriteLine(p);
                     }
@@ -250,15 +252,15 @@ namespace Lanitlesson
                     while (true)
                     {
                         TextColor.Green("Какой клиент интересует?");
-                        otvetClient = Console.ReadLine();
+                        otvetCustomer = Console.ReadLine();
 
-                        if (clients.Any(x => x == otvetClient))
+                        if (customers.Any(x => x == otvetCustomer))
                         {
-                            var b = from or in con.Orders
-                                    join c in con.Clients on or.clientID equals c.ID
-                                    join a in con.Autos on or.autoID equals a.ID
-                                    join ow in con.Owners on a.ownerID equals ow.ID
-                                    where c.Name == otvetClient
+                            var b = from or in con.CustomersCars
+                                    join c in con.Customers on or.CustomerID equals c.ID
+                                    join a in con.Cars on or.CarID equals a.ID
+                                    join ow in con.Companies on a.CompanyID equals ow.ID
+                                    where c.Name == otvetCustomer
                                     select new { c.Name, c.License, ow.City, a.Model };
 
                             foreach (var p in b)
@@ -279,7 +281,7 @@ namespace Lanitlesson
             {
                 TextColor.Red("Такого варианта нет!");
             }
-            CRUDLINQ.Menu();
+            //CRUDLINQ.Start();
         }
 
         public static void Delete()
@@ -292,8 +294,8 @@ namespace Lanitlesson
 
             using (DatabaseContext con = new DatabaseContext())
             {
-                var d = (from c in con.Clients orderby c.Name select new { c.Name, c.License }).Distinct();
-                var clients = con.Clients.Select(x => x.Name).ToList();
+                var d = (from c in con.Customers orderby c.Name select new { c.Name, c.License }).Distinct();
+                var customers = con.Customers.Select(x => x.Name).ToList();
                 foreach (var p in d)
                 {
                     Console.WriteLine(p.Name + "--" + p.License);
@@ -304,14 +306,14 @@ namespace Lanitlesson
                     TextColor.Green("Введите фамилию клиента");
                     otvetName = Console.ReadLine();
 
-                    if (clients.Any(x => x == otvetName))
+                    if (customers.Any(x => x == otvetName))
                     {
                         while (true)
                         {
                             TextColor.Green("Введите номер водительского удостоверения");
                             otvetLicense = Console.ReadLine();
 
-                            var licenses = con.Clients.Where(x => x.Name == otvetName).Select(x => x.License).ToList();
+                            var licenses = con.Customers.Where(x => x.Name == otvetName).Select(x => x.License).ToList();
                        
                             if (licenses.Any(x => x == otvetLicense))
                             {
@@ -320,8 +322,8 @@ namespace Lanitlesson
 
                                 if (otvetDelete == "y")
                                 {
-                                    var clientToDelete = con.Clients.Where(x=>x.Name == otvetName && x.License==otvetLicense).FirstOrDefault();
-                                    con.Clients.Remove(clientToDelete);
+                                    var customerToDelete = con.Customers.Where(x=>x.Name == otvetName && x.License==otvetLicense).FirstOrDefault();
+                                    con.Customers.Remove(customerToDelete);
                                     con.SaveChanges();
                                     con.Database.Migrate();
 
@@ -330,7 +332,8 @@ namespace Lanitlesson
                                 }
                                 else
                                 {
-                                    CRUDLINQ.Menu();
+                                    //CRUDLINQ.Start();
+                                    break;
                                 }
                             }
                             else
@@ -350,7 +353,7 @@ namespace Lanitlesson
                 }
                 con.Database.Migrate();
             }
-            CRUDLINQ.Menu();
+            //CRUDLINQ.Start();
         }
     }
 }
